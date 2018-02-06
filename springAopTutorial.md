@@ -27,15 +27,20 @@ public class BeforeAspect {
 		logger.info("Intercepted a method call{}",joinpoint);
 	}
 }
+
 Point cut:
 I would need to define which methods I would want to intercept called point cut.
+
 Definition:
 The expression which defines what kind of methods do I need to intercept Is called pointcut.
+
 Eg:- @Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
 The expression (* PACKAGE.*.*(..)) is called pointcut
 // ANY RETURN TYPE in a SPECIFIC PACKAGE.Any class.any method
+
 Advice:
 What should I do after intercepting a method is called. The logic defined to do something after intercepting a method is called Advice.
+
 Eg:-
 public void before(JoinPoint joinpoint) {
 		//What to do logic is called advice
@@ -43,9 +48,11 @@ public void before(JoinPoint joinpoint) {
 		logger.info("Intercepted a method call{}",joinpoint);
 	}
 
+
 Aspect: 
 The Combination of the pointcut and advice is called Aspect.
 What kind of methods to intercept and what to do together called as an Aspect.
+
 Eg:-
 @Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
 	public void before(JoinPoint joinpoint) {
@@ -55,6 +62,7 @@ Eg:-
 
 JoinPoint:
 The JoinPoint is a specific execution interception of a method call. This gives info about what has got intercepted
+
 Eg:
 public void before(JoinPoint joinpoint) {
 		//What to do logic is called advice
@@ -65,6 +73,7 @@ public void before(JoinPoint joinpoint) {
 
 Viewing:
 The process of implementing the AOP around the method calls is called viewing 
+
 Viewer:
 The framework which implements the viewing is called as viewer.
 
@@ -76,23 +85,23 @@ Types of aspects:
 5.	Around
 
 •	Before
-@Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
+        @Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
 	public void before(JoinPoint joinpoint) {
-		// Advice -What to do?
-		//
-		logger.info("Before Method call:Intercepted a method call{}",joinpoint);
+	// Advice -What to do?
+	//
+	logger.info("Before Method call:Intercepted a method call{}",joinpoint);
 	}
 
 •	AfterReturning
 Eg:-
-@AfterReturning(value = "execution (* com.syntel.aop.springaop.service.*.*(..))", returning = "result")
+        @AfterReturning(value = "execution (* com.syntel.aop.springaop.service.*.*(..))", returning = "result")
 	public void after(JoinPoint joinpoint, Object result) {
 		logger.info("{} returned with value {}", joinpoint, result);
 	}
 
 •	AfterThrowing
 Eg:-
-@AfterThrowing(value = "execution (* com.syntel.aop.springaop.service.*.*(..))", throwing = "exception")
+        @AfterThrowing(value = "execution (* com.syntel.aop.springaop.service.*.*(..))", throwing = "exception")
 	public void after(JoinPoint joinpoint, Object exception) {
 		logger.info("{} returned with value {}", joinpoint, exception);
 	}
@@ -100,17 +109,16 @@ Eg:-
 •	After
 Eg:-
 
-@Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
+        @Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
 	public void before(JoinPoint joinpoint) {
 		logger.info("After a method call{}", joinpoint);
 		}
 
 •	Around
 Eg:-
-
-@Around("execution (* com.syntel.aop.springaop.service.*.*(..))")
-		public void before(ProceedingJoinPoint joinpoint) throws Throwable {
-		//start time=x
+        @Around("execution (* com.syntel.aop.springaop.service.*.*(..))")
+	public void before(ProceedingJoinPoint joinpoint) throws Throwable {
+	        //start time=x
 		//allow execution of the method
 		//end time=y
 		long startTime=System.currentTimeMillis();
@@ -120,14 +128,15 @@ Eg:-
 			}
 
 Note:
+
 Problem 1:
 The above pointcuts are repeating for all types of aspects for every method. Imagine if it is a big application and it becomes more complex and to avoid one have to follow the industry standards.
 
 
 Solution:
 We need to have the separate files defining all the point cuts 
-Eg:-
 
+Eg:-
 package com.syntel.aop.springaop.aspect.commanconfig;
 
 import org.aspectj.lang.annotation.Pointcut;
@@ -139,6 +148,7 @@ public class CommanJoinPointConfig {
 		
 	}
 }
+
 Q) How to use the commanJoinPointConfig ?
 
 A) 
@@ -179,7 +189,7 @@ public class CommanJoinPointConfig {
 	@Pointcut("execution (* com.syntel.aop.springaop.service.*.*(..))")
 	public void serviceLayerExecution() {}
 	
-	@Pointcut("com.syntel.aop.springaop.aspect.commanconfig.CommanJoinPointConfig.dataLayerExecution() && com.syntel.aop.springaop.aspect.commanconfig.CommanJoinPointConfig.serviceLayerExecution()")
+	@Pointcut("com.syntel.aop.springaop.aspect.commanconfig.CommanJoinPointConfig.dataLayerExecution() &&       com.syntel.aop.springaop.aspect.commanconfig.CommanJoinPointConfig.serviceLayerExecution()")
 	public void allLayerExecution() {}
 	
 	@Pointcut("bean(*dao*)")
@@ -189,6 +199,7 @@ public class CommanJoinPointConfig {
 	public void dataLayerExecutionWithWithin() {}
 	
 }
+
 Q) Implement an annotation which actually calculates the perforamce of a particular class and/or chosen methods
 A)@TrackTime
 
