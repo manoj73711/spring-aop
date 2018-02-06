@@ -35,6 +35,7 @@ Definition:
 The expression which defines what kind of methods do I need to intercept Is called pointcut.
 
 Eg:- @Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
+
 The expression (* PACKAGE.*.*(..)) is called pointcut
 // ANY RETURN TYPE in a SPECIFIC PACKAGE.Any class.any method
 
@@ -42,10 +43,10 @@ Advice:
 What should I do after intercepting a method is called. The logic defined to do something after intercepting a method is called Advice.
 
 Eg:-
-public void before(JoinPoint joinpoint) {
-		//What to do logic is called advice
-		//Do this
-		logger.info("Intercepted a method call{}",joinpoint);
+        public void before(JoinPoint joinpoint) {
+	//What to do logic is called advice
+	//Do this
+	logger.info("Intercepted a method call{}",joinpoint);
 	}
 
 
@@ -56,9 +57,9 @@ What kind of methods to intercept and what to do together called as an Aspect.
 Eg:-
 @Before("execution (* com.syntel.aop.springaop.service.*.*(..))")
 	public void before(JoinPoint joinpoint) {
-		//What to do?
-		logger.info("Intercepted a method call{}",joinpoint);
-	}
+	//What to do?
+	logger.info("Intercepted a method call{}",joinpoint);
+	 }
 
 JoinPoint:
 The JoinPoint is a specific execution interception of a method call. This gives info about what has got intercepted
